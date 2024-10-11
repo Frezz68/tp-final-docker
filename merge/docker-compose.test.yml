@@ -1,0 +1,10 @@
+services:
+  web:
+    environment:
+      - ENV=test
+    depends_on:
+      - db
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: testpassword

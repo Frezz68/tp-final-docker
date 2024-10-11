@@ -1,0 +1,11 @@
+services:
+  web:
+    environment:
+      - ENV=production
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    volumes:
+      - /var/www/html:/usr/share/nginx/html

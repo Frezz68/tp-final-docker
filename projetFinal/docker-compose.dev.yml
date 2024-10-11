@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    networks:
+      - backend-net
+    volumes:
+      - ./backend:/usr/src/app
+    environment:
+      NODE_ENV: development
+
+  frontend:
+    build:
+      context: ./frontend
+    networks:
+      - frontend-net
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+
+  postgres:
+    image: postgres:alpine
+    networks:
+      - backend-net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    networks:
+      - backend-net
+
+networks:
+  frontend-net:
+  backend-net:
+
+volumes:
+  pgdata:
+  redisdata:

@@ -1,0 +1,6 @@
+services:
+  web:
+    environment:
+      - ENV=development
+    volumes:
+      - ./dev-site:/usr/share/nginx/html

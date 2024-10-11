@@ -1,0 +1,44 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    networks:
+      - frontend-net
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app
+    depends_on:
+      - postgres
+    networks:
+      - backend-net
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend-net
+
+  redis:
+    image: redis
+    volumes:
+      - redisdata:/data
+    networks:
+      - backend-net
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  frontend-net:
+  backend-net:
